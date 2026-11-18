@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="output"></div>
+    <script type="text/javascript">
+        function myFuntion(){ // 함수 선언식 
+            carName="소나타";
+        }
+        function person(first, last, age, eye){ // 함수를 객체 처럼 (일급객체) - class도 내부에서 사용
+            this.firstName=first; // 다른 언어에서는 자기자신을 this
+            this.address=last;
+            this.age=age;
+            this.eyeColor=eye;
+        }
+        // 동적 메모리 할당 : new (C++, java)
+        let myFather = new person("서울남", "서울시 종로구", "50", "blue")
+        let myMother = new person("메로나", "제주도 감귤", "48", "gree")
+        myFuntion();
+        console.log("차 이름:", carName);
+        console.log(myFather);
+        console.table([myFather, myMother]);
+        console.log(`아버지 성함: ${myFather.firstName}, 주소: ${myFather.address}`);
+        console.log(`어머니 성함: ${myMother.firstName}, 주소: ${myMother.address}`);
+        console.log("아버지 성함: " + myFather.firstName + ", 주소 : " + myFather.address);
+        const outputDiv = document.getElementById("output");
+        outputDiv.innerHTML = `
+            <p>차량: ${carName}</p>
+            <p>아버지: ${myFather.firstName} (${myFather.address}, ${myFather.age}세)</p>
+            <p>어머니: ${myMother.firstName} (${myMother.address}, ${myMother.age}세)</p>
+        `;
+    </script>
+    <!-- 순서가 바뀌어도 클릭시 자바스크립트가 실행이 되기 때문에 정상 작동 -->   
+    <button onclick="document.getElementById('demo').innerHTML=Date()">시간은?</button>> 
+    <p id="demo"></p>
+</body>
+</html>

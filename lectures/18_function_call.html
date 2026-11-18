@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn-log">눌러보기 (Handler)</button>
+    <button onclick="console.log(999)">누르기</button>
+    <button onclick="f()">alert출력</button>
+    <button onclick="f2()">대입 함수 출력</button>
+    <button onclick="myFamily.print()">이름 출력</button>
+    <button onclick="printSum(10, 20)">합계 출력</button>
+    <script>
+        function g() {
+            window.alert("함수 테스트")
+        };
+        let f = function () {
+            window.alert("함수 테스트")
+        };
+        let f2 = f;
+        let myFamily = {
+            name: "만세",
+            print: function () {
+                window.alert(this.name + " 운동법")
+            }
+        };
+        function printSum(in_num1, in_num2) {
+            let result = in_num1 + in_num2;
+            console.log("수의 합 : " + result);
+        };
+        function handleLogClick(event){ // 이벤트 핸들러 
+            console.log(999, "발생한 이벤트 타입:",event.type);
+        }
+        // DOMContentLoaded는 DOM이 완성이 됐을때 발생하는 이벤트 
+        // callback, event handler, listener
+        document.addEventListener("DOMContentLoaded", function(){
+            const btnLog = document.getElementById("btn-log");
+            // 이벤트 핸들러와 이벤트를 연결해주는 listener 함수 
+            btnLog.addEventListener("click", handleLogClick);
+        });
+    </script>
+</body>
+
+</html>

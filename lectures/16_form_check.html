@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form>
+        <p>이름 : <input type="text" name="irum"></p>
+        <p>성별 : <input type="radio" name="sung" value="남자" checked>남자
+            <input type="radio" name="sung" value="여자">여자
+        </p>
+        <p>취미 : <input type="checkbox" name="like" value="등산">등산
+            <input type="checkbox" name="like" value="낚시">낚시
+            <input type="checkbox" name="like" value="바둑">바둑
+            <input type="checkbox" name="like" value="게임">게임
+        </p>
+        <p><input type="button" value="결과확인" onclick="show()"></p>
+        <textarea cols="40" rows="15" name="result"></textarea>
+    </form>
+    <!-- <script>
+        function show() {
+            // 이름 : 텍스트 입력
+            const irum = document.querySelector("input[name='irum']").value;
+
+            // 성별 : 체크된 라디오 버튼 하나
+            const sung = document.querySelector("input[name='sung']:checked").value;
+
+            // 취미 : 체크된 체크박스 여러 개
+            const likes = document.querySelectorAll("input[name='like']:checked");
+            const likeList = Array.from(likes).map(el => el.value);
+
+            // 결과 출력
+            document.querySelector("textarea[name='result']").value =
+                `이름 : ${irum}\n` +
+                `성별 : ${sung}\n` +
+                `취미 : ${likeList.length > 0 ? likeList.join(", ") : "없음"}`;
+        }
+    </script> -->
+    <script>
+        function show() {
+            const form = document.forms[0]; // 브라우저의 모든 객체는 DOM tree 형성
+            const n = form.irum.value;
+            let s;
+
+            if (n === "") {
+                alert("이름을 입력하세요");
+                form.irum.focus();
+                return;
+            }
+            if (form.sung[0].checked)
+                s = "남자";
+            else
+                s = "여자";
+            let str = "";
+            for (let i = 0; i < form.like.length; i++) {
+                if (form.like[i].checked) {
+                    if (str === "")
+                        str = form.like[i].value;
+                    else
+                        str += ". " + form.like[i].value;
+                }
+            }
+            let data = n + "씨\n";
+            data += "당신은 " + s + "이고,\n";
+            if (str === "")
+                data += "취미가 없군요!!";
+            else
+                data += "취미는 " + str + "이군요!";
+            form.result.value = data;
+            localStorage.setItem("like", data);            // 저장
+            const getData = localStorage.getItem("like");  // 꺼내기
+            console.log("선택한 내용:", getData);
+
+            const userSetting = {
+                theme : "dark",
+                fontSize : 16,
+                lastVisit : "2026-11-18"
+            };
+            // 객체 -> 문자열 (JSON)
+            // JSON이 데이터 송수신 포멧의 표준 (NoSQL로 데이터 저장 포멧)
+            // NoSQL은 키 데이터 형식의 데이터베이스(고속검색이 가능)
+            localStorage.setItem("user_pref", JSON.stringify(userSetting));
+
+            const saveData = localStorage.getItem("user_pref");
+                if (saveData){
+                    const parsedData = JSON.parse(saveData);
+                    console.log("불러온 테마:", parsedData.theme);
+                }         
+            localStorage.removeItem("user_pref");
+        }
+    </script>
+</body>
+
+</html>

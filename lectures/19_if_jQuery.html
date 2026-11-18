@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.8.0.min.js"
+        integrity="sha256-Qsm+tn0R947bY3ltDZv7B00PwaILR61y/Lf7Dz3Gpv4=" crossorigin="anonymous"></script>
+    <title>Document</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f2f5;
+            margin: 0;
+        }
+
+        .container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        button {
+            padding: 0.75rem 1.5rem;
+            margin-top: 1rem;
+            font-size: 1rem;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <form name="calc">
+        <!-- 자바스크립터는 int, float이 없음 => number 
+         입출력 할때는 text로 입력 => parseInt, parseFloat로 변환 => 변환된 결과 => number(64bit) -->
+        <input type="number" id="num1" class="btn btn-success" value="0">
+        <input type="number" id="num2" class="btn btn-success" value="0">
+        <br>
+        <button type="button" id="btn-calc" class="btn btn-success">계산</button>
+        <br><br>
+        <span>=</span>
+        <input type="text" id="calc_result" value="0">
+        <input type="text" id="evenodd_result" value=" ">
+
+    </form>
+    <!-- calcnum 함수 작성 -->
+    <script>
+        // jQuery는 javascript를 함수 베이스로 wrapper해서 사용하기 쉽게 프로그래밍 
+        // id는 중복되면 안됨 (페이지 내에서 유일)
+        $(document).ready(function () { // jQuery시작 - 이벤트 등록 작업 
+            $('#btn-calc').on("click", function () {
+                const n1 = parseFloat($("#num1").val()) || 0;
+                const n2 = parseFloat($("#num2").val()) || 0;
+                const sum = n1 + n2;
+                $("#calc_result").val(sum);
+                $("#evenodd_result").val(sum % 2 === 0 ? "짝수" : "홀수");
+            });
+        });
+        // 문제 : 결과값이 짝수 인지 홀수인지를 확인해서 결과값과 함께 출력
+        // 별도의 input 박스를 만든 다음 출력 
+    </script>
+</body>
+
+</html>

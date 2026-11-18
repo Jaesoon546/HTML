@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>쿠키관리</title>
+</head>
+
+<body onload="checkCookie()">
+    <!-- 쿠키는  web server와  web browser간의 정보 공유 (DB에 저장 부담 -> 중요정보제외, 서버부담을 줄여줌)-->
+    <!-- 웹서버에서 종료일자와 쿠키값을 전송 -> 웹브라우저에 저장 -->
+    <!-- 웹브라우저가 쿠키에 해당하는 웹서버로 접속하면 자동으로 서버에 전송 -->
+    <script>
+        function setCookie(cname, cvalue, exdays) { // 키 + 데이터 + 소멸시간
+            let d = new Date();
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000)); // 시간을 밀리초로 변경 
+            let expires = "expires=" + d.toUTCString(); // 표준시간 
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+        function getCookie(cname) {
+            let name = cname + "=";
+            let ca = document.cookie.split(';');  // 쿠키는 분리문자(seperator)를 중심사고 문자열로 지정 
+            for (let i = 0; i < ca.length; i++) { // 배열의 개수 = length 
+                let c = ca[i];
+                while (c.charAt(0) === ' ') {     // 문자열 중에서 첫번째 문자가 공백일 때 
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) === 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+        function checkCookie() {
+            let user = getCookie('username')
+            if (user !== "") {
+                alert("재방문을 환영 합니다." + user);
+            } else {
+                user = prompt("이름을 입력하세요", "");
+                if (user !== "" && user !== null) {
+                    setCookie("username", user, 30);
+                }
+            }
+        }
+        function deleteCookie() {
+            let key = prompt("삭제하고자 하는 키를 입력하세요", "");
+            if (!key) return;      // 취소하거나 아무것도 입력하지 않으면 함수 종료
+            let covalue = getCookie(key);
+            if (covalue !== "") {
+                setCookie(key, '', -1); // 시간이 경과하면 자동으로 정리 
+                alert("삭제 되었습니다");
+            }
+            else {
+                let ret = confirm("찾고자 하는 키가 없습니다. 등록하시겠습니까");
+                if (ret === true) {
+                    let value = prompt("등록하고자 하는 " + key + "의 값을 입력하세요");
+                    if (value) {
+                        setCookie(key, value, 1);
+                    }
+                    else {
+                        alert("입력된 값이 없습니다 ");
+                    }
+                }
+                else {
+                    alert("해당 키가 없습니다. ");
+                }
+            }
+        }
+        function findCookie() {
+            let key = prompt("찾고자 하는 키값을 입력하세요", "");
+            if (!key) return;      // 취소하거나 아무것도 입력하지 않으면 함수 종료
+            let covalue = getCookie(key);
+            if (covalue !== "") {
+                let ret = confirm("찾고자 하는 키:" + key + "의 값 : " +
+                    covalue + "이 맞습니까");
+                if (ret === true) {
+                    alert("당신이 찾고자 하는 값 :   " + covalue +
+                        "입니다.");
+                } else {
+                    alert(" 찾고자 하는 값이 없습니다. .");
+                }
+            }
+            else {
+                alert("해당하는 키가 없습니다. ");
+            }
+
+        }
+    </script>
+    <input type="button" value="쿠키 생성" onclick="setCookie('test','cookie 테스트',1)">
+    <input type="button" value="쿠키 출력" onclick="alert(getCookie('test'))">
+    <input type="button" value="쿠키 삭제" onclick="setCookie('test','',-1)">
+    <input type="button" value="이름 쿠키 삭제" onclick="setCookie('username','',-1)">
+    <input type="button" value="키이름 입력 삭제" onclick="deleteCookie()">
+    <input type="button" value="쿠키 탐색" onclick="findCookie()">
+</body>
+
+</html>

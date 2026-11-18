@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+        class Menber{
+            constructor(name, city, role){ // 멤버변수 초기화는 constructor에서 
+                this.name = name;
+                this.city = city;
+                this.role = role;
+            }
+            getIntroduction(){ // 멤버 함수
+                return `안녕하세요, ${this.city}에 사는 ${this.name}(${this.role})입니다.`;
+            }
+        }
+        class Post{
+            constructor(id, title, content){ // 클래스 생성자 
+                this.id = id;
+                this.title = title;
+                this.content = content; // 여기에 마크다운 원문 저장
+                this.createdAt = new Date().toLocaleDateString();
+            }
+            getSummary(){ // 멤버 함수
+                return this.content.substring(0,20) + "...";
+            }
+        }
+        const newMember = new Menber("홍길동", "부산", "관리자");
+        const mdPost = new Post(1, "FastAPI 공부", "## 마크다운 내용\nFastAPI는 정말 빠릅니다.");
+        console.log(newMember.getIntroduction());
+        console.log(mdPost.getSummary());
+        function showData(){
+            const demo = document.getElementById('demo');
+            demo.innerHTML = `멤버: ${newMember.name}, 포스트 제목: ${mdPost.title}`;
+        }
+    </script>
+    <p id="demo"></p>
+    <button onclick="showData()">클래스 데이터 확인</button>
+</body>
+</html>

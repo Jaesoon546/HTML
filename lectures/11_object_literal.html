@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p id = "demo"></p>
+    <p id = "demo2"></p>
+    <p id = "demo3"></p>
+    <p id = "demo4"></p>
+    <script>
+        let car = {type:"Fiat", model:"500", coler:"white"} // 객체 리터럴
+        document.getElementById("demo").innerHTML = car;
+        document.getElementById("demo2").innerHTML = "Ther car type is " + car.type;
+        let person = {
+            firstName : "박",
+            lastName : "재순",
+            id : 5566,
+            fullName : function(){ // 함수 표현식
+                return this.firstName + " " + this.lastName;
+            }
+        };
+        document.getElementById("demo3").innerHTML = person.fullName();
+        let emp = new Object();
+        emp.id = 101;
+        emp.name = "대한민국";
+        emp.salary = 50000;
+        document.getElementById("demo4").innerHTML = emp.id + " " + emp.name + " " + emp.salary;
+    </script>
+</body>
+</html>
